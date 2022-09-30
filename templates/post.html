@@ -1,0 +1,65 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{post.img_url}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{post.title}}</h1>
+            <h2 class="subheading">{{post.subtitle}}</h2>
+            <span class="meta">Posted by
+              <a href="#">{{post.author}}</a>
+              on {{post.date}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {{ post.body|safe }}
+          <hr>
+
+            <div class="clearfix">
+            <a class="btn btn-primary float-right" href="{{url_for('edit_post', post_id=post.id)}}">Edit Post</a>
+            </div>
+
+
+          {{  wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+
+            {{ ckeditor.load() }}
+            {{ ckeditor.config(name='body') }}
+
+
+<!--           Comments Area -->
+          <div class="col-lg-8 col-md-10 mx-auto comment">
+              <ul class="commentList">
+                <li>
+                  {% for all_comment in post.comments %}
+                      <div class="commenterImage">
+                        <img src="https://www.gravatar.com/avatar/f7bdec652583aced67f61e099a257760?d=mp"/>
+                      </div>
+                      <div class="commentText">
+                        <p>{{ all_comment.text|safe }}</p>
+                        <span class="date sub-text">{{ all_comment.user_comment.name }}</span>
+                    </div>
+                  {% endfor %}
+                </li>
+              </ul>
+            </div>
+
+
+          </div>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+{% include "footer.html" %}
