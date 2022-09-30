@@ -13,7 +13,7 @@ from functools import wraps
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(32)
+app.config['SECRET_KEY'] = "qwertyu23456709871dfgvxftyf"
 
 ckeditor = CKEditor(app)
 Bootstrap(app)
